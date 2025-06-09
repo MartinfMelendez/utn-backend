@@ -31,3 +31,29 @@ exports.create = async (req, res) => {
     res.status(500).json({ error: "No se pudo crear" });
   }
 };
+
+exports.modificar = async (req, res) => {
+  try {
+    const categoria = await service.modificarCategoria(req.body, req.params.id);
+    res.status(200).json(categoria);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+exports.remove = async (req, res) => {
+  try {
+    const verificar = await service.getOne(req.params.id);
+    if (!verificar) {
+      res
+        .status(404)
+        .json({ Error: "La categoria que intenta eliminar no existe" });
+      return;
+    }
+    const remover = await service.removeCategoria(req.params.id);
+    res.status(200).json(remover);
+  } catch (error) {
+    res.status(500).json(error);
+    console.log(error);
+  }
+};

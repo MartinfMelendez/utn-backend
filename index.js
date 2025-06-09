@@ -2,9 +2,10 @@
 const express = require("express");
 const hbs = require("express-handlebars");
 
-const marca = require("./src/router/marca");
-const categorias = require("./src/router/categoria");
+const marca = require("./src/router/marca.router");
+const categorias = require("./src/router/categoria.router");
 const productos = require("./src/router/producto.router");
+const usuarios = require("./src/router/usuarios.router");
 
 const pool = require("./src/database/db");
 
@@ -26,6 +27,8 @@ app.use("/marca", marca);
 app.use("/categorias", categorias);
 
 app.use("/productos", productos);
+
+app.use("/usuarios", usuarios);
 
 app.listen(PORT, () => {
   console.log(`Server escuchando http://localhost:${PORT}`);

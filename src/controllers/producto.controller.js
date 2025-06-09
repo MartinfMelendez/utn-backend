@@ -29,3 +29,36 @@ exports.createProduct = async (req, res) => {
     res.status(500).json({ error: "Error al crear un producto" });
   }
 };
+
+exports.modificarProducto = async (req, res) => {
+  try {
+    const verificar = await service.getOne(req.params.id);
+    if (!verificar) {
+      res
+        .status(404)
+        .json({ Error: "El Producto que intenta modificar no existe" });
+      return;
+    }
+    const update = await service.modificar(req.body, req.params.id);
+    res.status(200).json(update);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error al modificar el producto" });
+  }
+};
+
+exports.removeProducto = async (req, res) => {
+  try {
+    const verificar = await service.getOne(req.params.id);
+    if (!verificar) {
+      res
+        .status(404)
+        .json({ Error: "El Producto que intenta eliminar no existe" });
+      return;
+    }
+    const remover = await service.remove(req.params.id);
+    res.status(200).json(remover);
+  } catch (error) {
+    res.status(500).json({ error: "Error al eliminar el producto" });
+  }
+};
