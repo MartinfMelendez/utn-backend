@@ -6,6 +6,7 @@ const controller = require("../controllers/usuarios.controller");
 usuariosRouter.get("/", controller.getAll);
 usuariosRouter.get("/:id", controller.getOne);
 usuariosRouter.post("/", controller.createUsuario);
+usuariosRouter.put("/:id", controller.modificarUsuario);
 usuariosRouter.delete("/:id", controller.remove);
 
 module.exports = usuariosRouter;

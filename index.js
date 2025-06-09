@@ -6,6 +6,7 @@ const marca = require("./src/router/marca.router");
 const categorias = require("./src/router/categoria.router");
 const productos = require("./src/router/producto.router");
 const usuarios = require("./src/router/usuarios.router");
+const talle = require("./src/router/talle.router");
 
 const pool = require("./src/database/db");
 
@@ -23,12 +24,10 @@ app.use(express.static("public")); //Comando para leer archivos estaticos
 //Para utilizar el Router se usa la palabra use--> app.use(direccion, router)
 
 app.use("/marca", marca);
-
 app.use("/categorias", categorias);
-
 app.use("/productos", productos);
-
 app.use("/usuarios", usuarios);
+app.use("/talle", talle);
 
 app.listen(PORT, () => {
   console.log(`Server escuchando http://localhost:${PORT}`);

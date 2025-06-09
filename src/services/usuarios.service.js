@@ -1,15 +1,24 @@
 const pool = require("../database/db");
 
 exports.getAll = async () => {
-  const [row] = await pool.query("Select * from usuario");
-  return row;
+  try {
+    const [row] = await pool.query("Select * from usuario");
+    return row;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.getOne = async (id) => {
-  const [row] = await pool.query("select * from usuario where id_usuario = ?", [
-    id,
-  ]);
-  return row[0];
+  try {
+    const [row] = await pool.query(
+      "select * from usuario where id_usuario = ?",
+      [id]
+    );
+    return row[0];
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.create = async ({
@@ -33,6 +42,21 @@ exports.create = async ({
     direccion,
     telefono,
   };
+};
+
+exports.modificar = async (
+  id,
+  { nombre, apellido, email, password, direccion, telefono }
+) => {
+  try {
+    const [row] = await pool.query(
+      "update usuario set nombre = ?, apellido = ? , email = ?, password = ?, direccion = ?, telefono = ? where id_usuario = ?",
+      [nombre, apellido, email, password, direccion, telefono, id]
+    );
+    return { nombre, apellido, email, password, direccion, telefono, id };
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.remove = async (id) => {

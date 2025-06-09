@@ -32,6 +32,20 @@ exports.createUsuario = async (req, res) => {
   }
 };
 
+exports.modificarUsuario = async (req, res) => {
+  try {
+    const verificar = await service.getOne(req.params.id);
+    if (!verificar) {
+      res.status(404).json({ error: "Usuario no encontrado" });
+      return;
+    }
+    const result = await service.modificar(req.params.id, req.body);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ error: "No se pudo modificar el usuario" });
+  }
+};
+
 exports.remove = async (req, res) => {
   try {
     const verificar = await service.getOne(req.params.id);
