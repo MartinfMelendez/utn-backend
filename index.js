@@ -7,6 +7,7 @@ const categorias = require("./src/router/categoria.router");
 const productos = require("./src/router/producto.router");
 const usuarios = require("./src/router/usuarios.router");
 const talle = require("./src/router/talle.router");
+const carrito = require("./src/router/carrito.router");
 
 const pool = require("./src/database/db");
 
@@ -28,6 +29,7 @@ app.use("/categorias", categorias);
 app.use("/productos", productos);
 app.use("/usuarios", usuarios);
 app.use("/talle", talle);
+app.use("/carrito", carrito);
 
 app.listen(PORT, () => {
   console.log(`Server escuchando http://localhost:${PORT}`);

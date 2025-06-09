@@ -1,4 +1,3 @@
-const nodemon = require("nodemon");
 const pool = require("../database/db"); //me conecto a la base de datos
 
 //Realizo la consulta sql a la base de datos
