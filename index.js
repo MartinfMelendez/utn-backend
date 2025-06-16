@@ -1,3 +1,5 @@
+const morgan = require("morgan");
+
 //importar express
 const express = require("express");
 const hbs = require("express-handlebars");
@@ -30,6 +32,8 @@ app.use("/productos", productos);
 app.use("/usuarios", usuarios);
 app.use("/talle", talle);
 app.use("/carrito", carrito);
+
+app.use(morgan("dev"));
 
 app.listen(PORT, () => {
   console.log(`Server escuchando http://localhost:${PORT}`);

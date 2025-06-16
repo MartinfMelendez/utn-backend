@@ -13,3 +13,25 @@ exports.getAll = async (req, res) => {
     res.status(500).json({ Error: "No se pudo obtener los carritos" });
   }
 };
+
+exports.getOne = async (req, res) => {
+  try {
+    const { id_carrito, id_usuario } = req.params;
+    const carrito = await service.getOne(id_carrito, id_usuario);
+    if (!carrito) {
+      return res.status(404).json({ mensaje: "El carrito buscado no existe" });
+    }
+    res.json(carrito);
+  } catch (error) {
+    res.status(500).json({ error: "Error al buscar el carrito" });
+  }
+};
+
+exports.create = async (req, res) => {
+  try {
+    const carrito = await service.create(req.body);
+    res.status(201).json(carrito);
+  } catch (error) {
+    res.status(500).json({ errror: "Error al crear el carrito" });
+  }
+};
