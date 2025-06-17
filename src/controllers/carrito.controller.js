@@ -35,3 +35,12 @@ exports.create = async (req, res) => {
     res.status(500).json({ errror: "Error al crear el carrito" });
   }
 };
+
+exports.delete = async (req, res) => {
+  try {
+    const resu = await service.remove(req.params.id);
+    res.status(200).json(resu);
+  } catch (error) {
+    res.status(500).json({ Mensaje: error.mensaje });
+  }
+};

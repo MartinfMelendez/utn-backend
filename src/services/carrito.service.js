@@ -32,3 +32,12 @@ exports.create = async ({ id_carrito, id_usuario, fehca_creacion }) => {
     console.log(error);
   }
 };
+
+exports.remove = async (id_carrito) => {
+  try {
+    await pool.query("delete from carrito where id_carrito = ?", [id_carrito]);
+    return { delete: true };
+  } catch (error) {
+    console.log(error);
+  }
+};
