@@ -10,6 +10,7 @@ const productos = require("./src/router/producto.router");
 const usuarios = require("./src/router/usuarios.router");
 const talle = require("./src/router/talle.router");
 const carrito = require("./src/router/carrito.router");
+const carritoProducto = require("./src/router/carritoProducto.router");
 
 const pool = require("./src/database/db");
 
@@ -32,6 +33,7 @@ app.use("/productos", productos);
 app.use("/usuarios", usuarios);
 app.use("/talle", talle);
 app.use("/carrito", carrito);
+app.use("/carrito_producto", carritoProducto);
 
 app.use(morgan("dev"));
 
