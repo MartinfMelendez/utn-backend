@@ -2,7 +2,9 @@ const pool = require("../database/db");
 
 exports.getAll = async (req, res) => {
   try {
-    const [row] = await pool.query("select * from productos");
+    const [row] = await pool.query(
+      "select p.nombre, p.descripcion, p.precio, m.nombre, c.nombre from productos p inner join marca m on m.id_marca = p.marca_id inner join categoria c on c.id_categoria = p.categoria_id"
+    );
     return row;
   } catch (error) {
     console.log(error);
@@ -12,7 +14,7 @@ exports.getAll = async (req, res) => {
 exports.getOne = async (id) => {
   try {
     const [row] = await pool.query(
-      "select * from productos where id_producto = ?",
+      "select p.nombre, p.descripcion, p.precio, m.nombre, c.nombre from productos p inner join marca m on m.id_marca = p.marca_id inner join categoria c on c.id_categoria = p.categoria_id where id_producto = ?",
       [id]
     );
     return row[0];

@@ -2,18 +2,20 @@ const pool = require("../database/db");
 
 exports.getAll = async () => {
   try {
-    const [row] = await pool.query("Select * from usuario");
+    const [row] = await pool.query(
+      "Select nombre, apellido, email, coalesce(direccion,'-') as direccion, coalesce (telefono,'-') as telefono from usuario"
+    );
     return row;
   } catch (error) {
     console.log(error);
   }
 };
 
-exports.getOne = async (id) => {
+exports.getOne = async (email) => {
   try {
     const [row] = await pool.query(
-      "select * from usuario where id_usuario = ?",
-      [id]
+      "select id_usuario, nombre, apellido, email, password,coalesce(direccion,'-') as direccion, coalesce (telefono,'-') as telefono from usuario where email = ?",
+      [email]
     );
     return row[0];
   } catch (error) {
@@ -38,7 +40,6 @@ exports.create = async ({
     nombre,
     apellido,
     email,
-    password,
     direccion,
     telefono,
   };
@@ -49,7 +50,7 @@ exports.modificar = async (
   { nombre, apellido, email, password, direccion, telefono }
 ) => {
   try {
-    const [row] = await pool.query(
+    await pool.query(
       "update usuario set nombre = ?, apellido = ? , email = ?, password = ?, direccion = ?, telefono = ? where id_usuario = ?",
       [nombre, apellido, email, password, direccion, telefono, id]
     );

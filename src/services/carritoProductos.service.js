@@ -23,7 +23,11 @@ exports.getOne = async (id) => {
 
 exports.create = async ({ id_carrito, id_producto, id_talle, cantidad }) => {
   try {
-    const result = await pool.query(
+    if (!id_carrito || !id_producto || !id_talle || !cantidad) {
+      console.log("Faltan completar campos");
+      return;
+    }
+    await pool.query(
       "INSERT INTO carrito_producto(id_carrito, id_producto, id_talle, cantidad) VALUES (?,?,?,?)",
       [id_carrito, id_producto, id_talle, cantidad]
     );

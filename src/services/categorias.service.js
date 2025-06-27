@@ -36,10 +36,10 @@ exports.create = async ({ nombre }) => {
 
 exports.modificarCategoria = async ({ nombre }, id) => {
   try {
-    const [newCategoria] = await pool.query(
-      "update categoria set nombre = ? where id_categoria = ?",
-      [nombre, id]
-    );
+    await pool.query("update categoria set nombre = ? where id_categoria = ?", [
+      nombre,
+      id,
+    ]);
     return { id, nombre };
   } catch (error) {
     console.log(error);

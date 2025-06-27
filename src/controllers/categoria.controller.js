@@ -3,6 +3,10 @@ const service = require("../services/categorias.service");
 exports.getAll = async (req, res) => {
   try {
     const categorias = await service.getAll();
+    if (!categorias) {
+      res.status(404).json({ mensaje: "No hay categorias cargadas" });
+      return;
+    }
     res.json(categorias);
   } catch (error) {
     res.status(500).json({
