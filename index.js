@@ -51,5 +51,5 @@ app.use("/auth", views);
 app.use(morgan("dev"));
 
 app.listen(PORT, () => {
-  console.log(`Server escuchando http://localhost:${PORT}/usuarios`);
+  console.log(`Server escuchando http://localhost:${PORT}`);
 });

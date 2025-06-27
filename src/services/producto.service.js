@@ -3,7 +3,7 @@ const pool = require("../database/db");
 exports.getAll = async (req, res) => {
   try {
     const [row] = await pool.query(
-      "select p.nombre, p.descripcion, p.precio, m.nombre, c.nombre from productos p inner join marca m on m.id_marca = p.marca_id inner join categoria c on c.id_categoria = p.categoria_id"
+      "select id_producto, p.nombre, p.descripcion, p.precio, m.nombre, c.nombre from productos p inner join marca m on m.id_marca = p.marca_id inner join categoria c on c.id_categoria = p.categoria_id"
     );
     return row;
   } catch (error) {
