@@ -1,3 +1,4 @@
+//Permite crear a los usuarios
 document.getElementById("usuarioForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -37,6 +38,7 @@ document.getElementById("usuarioForm").addEventListener("submit", async (e) => {
   }
 });
 
+//Permite buscar a los usuarios
 document.getElementById("Buscar").addEventListener("click", async (e) => {
   e.preventDefault();
 
@@ -71,6 +73,7 @@ document.getElementById("Buscar").addEventListener("click", async (e) => {
   }
 });
 
+//Permite eliminar a los usuarios
 document.getElementById("Eliminar").addEventListener("click", async (e) => {
   e.preventDefault();
 
@@ -94,24 +97,35 @@ document.getElementById("Eliminar").addEventListener("click", async (e) => {
   }
 });
 
-const token = localStorage.getItem("token");
+const token = localStorage.getItem("tokena");
 
 if (!token) {
-  alert("No has iniciado sesión.");
-  window.location.href = "../../index.html";
+  Toastify({
+    text: "Usuario no autorizado",
+    duration: 2000,
+    position: "center",
+    style: {
+      background: "linear-gradient(to right,rgb(255, 0, 51),rgb(201, 61, 61))",
+    },
+  }).showToast();
+  setTimeout(() => {
+    window.location.href = "../Pages/loguin.html";
+  }, 2000);
 } else {
   fetch("http://localhost:3000/auth/protegida", {
     headers: { Authorization: `Bearer ${token}` },
   })
     .then(async (res) => {
-      const text = await res.text(); //
+      const text = await res.text();
       if (!res.ok) {
         throw new Error(`Status ${res.status}`);
       }
-      return JSON.parse(text); //
+      return JSON.parse(text);
     })
     .then((data) => {
-      if (data.mensaje === "Acceso concedido") {
+      console.log(data.usuario.rol);
+      if (data.usuario.rol === 1) {
+        document.querySelector(".ocultar").style.display = "block";
         const email = data.usuario.email || data.usuario;
         document.getElementById("contenido").innerText = `Bienvenido, ${email}`;
       } else {
@@ -124,3 +138,20 @@ if (!token) {
       window.location.href = "../../index.html";
     });
 }
+
+document.getElementById("log-out").addEventListener("click", () => {
+  Toastify({
+    text: "Sesion finalizada",
+    duration: 2000,
+    position: "center",
+    style: {
+      background: "linear-gradient(to right,rgb(255, 0, 51),rgb(201, 61, 61))",
+    },
+  }).showToast();
+
+  setTimeout(() => {
+    localStorage.removeItem("token");
+    window.location.href = "../../index.html";
+    document.querySelector(".ocultar").style.display = "none";
+  }, 1000);
+});

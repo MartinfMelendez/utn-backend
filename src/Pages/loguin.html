@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../../public/style.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <h1>Tienda UTN </h1>
+      </div>
+      <div class="buscador">
+        <input type="text" class="buscar" id="input-buscar" placeholder="Buscar producto">
+        <button id="btn-buscar">Buscar</button>
+      </div>
+
+      <div>
+        <ul class="nav-links">
+          <li><a href="../../index.html">Inicio</a></li>
+          <li><a href="#">Loguin</a></li>
+          <li><a href="./gestorUsuarios.html" >Gestor</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="loguin">
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Contraseña" required />
+      <button type="submit">Ingresar</button>
+    </form>
+  </main>
+  <footer></footer>
+  <script src="../scripts/loguin.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>

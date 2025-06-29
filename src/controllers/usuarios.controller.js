@@ -28,7 +28,8 @@ exports.getOne = async (req, res) => {
 
 exports.createUsuario = async (req, res) => {
   try {
-    const { nombre, apellido, email, password, direccion, telefono } = req.body;
+    const { nombre, apellido, email, password, direccion, telefono, rol } =
+      req.body;
     const passCrypt = await bcrypt.hash(password, 8);
 
     const result = await service.create({
@@ -38,6 +39,7 @@ exports.createUsuario = async (req, res) => {
       password: passCrypt,
       direccion,
       telefono,
+      rol: rol || 0,
     });
     res.status(201).json(result);
   } catch (error) {

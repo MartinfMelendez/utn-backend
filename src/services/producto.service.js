@@ -3,7 +3,7 @@ const pool = require("../database/db");
 exports.getAll = async (req, res) => {
   try {
     const [row] = await pool.query(
-      "select id_producto, p.nombre, p.descripcion, p.precio, m.nombre, c.nombre from productos p inner join marca m on m.id_marca = p.marca_id inner join categoria c on c.id_categoria = p.categoria_id"
+      "select id_producto, p.nombre as pNombre, p.descripcion, p.precio, m.nombre, c.nombre as cNombre, imagen_url from productos p inner join marca m on m.id_marca = p.marca_id inner join categoria c on c.id_categoria = p.categoria_id"
     );
     return row;
   } catch (error) {
@@ -14,7 +14,7 @@ exports.getAll = async (req, res) => {
 exports.getOne = async (id) => {
   try {
     const [row] = await pool.query(
-      "select p.nombre, p.descripcion, p.precio, m.nombre, c.nombre from productos p inner join marca m on m.id_marca = p.marca_id inner join categoria c on c.id_categoria = p.categoria_id where id_producto = ?",
+      "select p.nombre, p.descripcion, p.precio, m.nombre, c.nombre, imagen_url from productos p inner join marca m on m.id_marca = p.marca_id inner join categoria c on c.id_categoria = p.categoria_id where id_producto = ?",
       [id]
     );
     return row[0];
@@ -29,11 +29,12 @@ exports.create = async ({
   precio,
   marca_id,
   categoria_id,
+  imagen_url,
 }) => {
   try {
     const [result] = await pool.query(
-      "insert into productos (nombre,descripcion,precio,marca_id,categoria_id) values (?,?,?,?,?)",
-      [nombre, descripcion, precio, marca_id, categoria_id]
+      "insert into productos (nombre,descripcion,precio,marca_id,categoria_id,imagen_url) values (?,?,?,?,?,?)",
+      [nombre, descripcion, precio, marca_id, categoria_id, imagen_url]
     );
     return {
       id: result.insertId,

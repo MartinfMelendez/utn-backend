@@ -1,16 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./public/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
+
 <body>
-    <form id="loginForm">
-  <input type="email" id="email" placeholder="Email" required /><br />
-  <input type="password" id="password" placeholder="Contraseña" required /><br /><br />
-  <button type="submit">Ingresar</button>
-</form>
-<script src="./src/scripts/loguin.js"></script>
-</body>
+
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="logo">
+                    <h1>Tienda UTN </h1>
+                </div>
+                <div class="buscador">
+                    <input type="text" class="buscar" id="input-buscar" placeholder="Buscar producto">
+                    <button id="btn-buscar">Buscar</button>
+                </div>
+
+                <div>
+                    <ul class="nav-links">
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="./src/Pages/loguin.html">Loguin</a></li>
+                        <li><a href="./src/Pages/gestorUsuarios.html" >Gestor</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+
+        </header>
+
+        <main>
+            <div class="prueba">
+                <section class="sec-filtros">
+                    <label for="descripcion">Categoria:</label>
+                    <select name="" id="descripcion">
+                    </select>
+
+                    <label for="precio-min">Precio mínimo:</label>
+                    <input type="number" id="precio-min" placeholder="Precio mínimo" step="100" min="0">
+
+                    <label for="precio-max">Precio máximo:</label>
+                    <input type="number" id="precio-max" placeholder="Precio máximo" step="100" min="0">
+
+                    <button id="btn-filtrar">Filtrar</button>
+                </section>
+
+                <section class="sec-productos">
+                    <div class="container-card">
+                    </div>
+                </section>
+            </div>
+
+            <div class="tabla-container">
+                <table class="tabla-productos">
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Precio Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="productos-lista">
+                        <!-- Los productos se agregarán aquí -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td><b>Total:</b></td>
+                            <td colspan="2" id="total">$0.00</td>
+                            <td><button id="finish">Finalizar compra</button></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </main>
+        <footer></footer>
+        <script src="./public/script.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </body>
+
 </html>
