@@ -5,7 +5,7 @@ exports.getAll = async (req, res) => {
     const result = await service.getAll();
     res.status(200).json(result);
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -17,7 +17,7 @@ exports.getOne = async (req, res) => {
     }
     res.status(200).json(buscado);
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -40,6 +40,6 @@ exports.delete = async (req, res) => {
     await service.delete(req.params.id);
     res.status(200).json({ Mensaje: "Se elimino de manera correcta" });
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };

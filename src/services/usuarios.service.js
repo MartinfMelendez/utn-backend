@@ -7,7 +7,7 @@ exports.getAll = async () => {
     );
     return row;
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -19,7 +19,7 @@ exports.getOne = async (email) => {
     );
     return row[0];
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -57,7 +57,7 @@ exports.modificar = async (
     );
     return { nombre, apellido, email, password, direccion, telefono, rol, id };
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -66,6 +66,6 @@ exports.remove = async (id) => {
     await pool.query("delete from usuario where id_usuario = ?", [id]);
     return { delete: true };
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };

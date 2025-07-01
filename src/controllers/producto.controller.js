@@ -51,14 +51,12 @@ exports.removeProducto = async (req, res) => {
   try {
     const verificar = await service.getOne(req.params.id);
     if (!verificar) {
-      res
-        .status(404)
-        .json({ Error: "El Producto que intenta eliminar no existe" });
+      res.status(404).json({ Error: error });
       return;
     }
     const remover = await service.remove(req.params.id);
     res.status(200).json(remover);
   } catch (error) {
-    res.status(500).json({ error: "Error al eliminar el producto" });
+    res.status(500).json({ error: error });
   }
 };

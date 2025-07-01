@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector(".ocultar").style.display = "none";
+});
+
 //Permite crear a los usuarios
 document.getElementById("usuarioForm").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -97,12 +101,11 @@ document.getElementById("Eliminar").addEventListener("click", async (e) => {
   }
 });
 
-const token = localStorage.getItem("tokena");
-
+const token = localStorage.getItem("token");
 if (!token) {
   Toastify({
-    text: "Usuario no autorizado",
-    duration: 2000,
+    text: "Debes iniciar sesion",
+    duration: 1000,
     position: "center",
     style: {
       background: "linear-gradient(to right,rgb(255, 0, 51),rgb(201, 61, 61))",
@@ -110,7 +113,25 @@ if (!token) {
   }).showToast();
   setTimeout(() => {
     window.location.href = "../Pages/loguin.html";
-  }, 2000);
+  }, 1000);
+}
+const payloadBase64 = token.split(".")[1];
+const payloadJson = atob(payloadBase64);
+const payload = JSON.parse(payloadJson);
+
+const rol = payload.usuario.rol;
+if (rol != 1) {
+  Toastify({
+    text: "Usuario no autorizado o no inicio sesion",
+    duration: 1000,
+    position: "center",
+    style: {
+      background: "linear-gradient(to right,rgb(255, 0, 51),rgb(201, 61, 61))",
+    },
+  }).showToast();
+  setTimeout(() => {
+    window.location.href = "../Pages/loguin.html";
+  }, 1000);
 } else {
   fetch("http://localhost:3000/auth/protegida", {
     headers: { Authorization: `Bearer ${token}` },
@@ -123,7 +144,6 @@ if (!token) {
       return JSON.parse(text);
     })
     .then((data) => {
-      console.log(data.usuario.rol);
       if (data.usuario.rol === 1) {
         document.querySelector(".ocultar").style.display = "block";
         const email = data.usuario.email || data.usuario;

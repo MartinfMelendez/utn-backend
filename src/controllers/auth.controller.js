@@ -30,13 +30,19 @@ exports.loguin = async (req, res) => {
 
 exports.protegida = (req, res) => {
   const authHeaders = req.headers.authorization;
+
   if (!authHeaders) return res.status(401).json({ mensaje: "Falta el token" });
   const token = authHeaders.split(" ")[1];
   jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
     if (err) return res.status(403).json({ mensaje: "Token inválido" });
-    res.status(200).json({
-      mensaje: "Acceso concedido",
-      usuario: decoded.usuario || decoded,
-    });
+    if (decoded.usuario.rol === 1) {
+      res.status(200).json({
+        mensaje: "Acceso concedido",
+        usuario: decoded.usuario || decoded,
+      });
+    } else {
+      res.status(401).json({ mensaje: "Usuario no autorizado" });
+      return;
+    }
   });
 };

@@ -2,7 +2,7 @@
 const btnBuscar = document.getElementById("btn-buscar");
 const inputBuscar = document.getElementById("input-buscar");
 
-//Esta es la funcion que se utiliza para Crear las CARD
+//Esta es la funcion que se utiliza para Crear las CARDS
 function crearCards(data) {
   const contenedor = document.querySelector(".container-card");
   contenedor.innerHTML = "";
@@ -18,9 +18,34 @@ function crearCards(data) {
         <input type="number" readonly class='cantidad' value='1'></input>
         <button class="mas">+</button>
       </div>
-        <p>$${element.precio}</p>
-        <button class='agregar' value='${element.id}'>Agregar</button>`; //El value se utiliza para hacer referencia al id de los productos
+        <p class='prod_precio' data-valor='${element.precio}'>$${
+      element.precio
+    }</p>
+        <button class='agregar' value='${
+          element.id_producto
+        }'>Agregar</button>`; //El value se utiliza para hacer referencia al id de los productos
     contenedor.appendChild(card);
+
+    //Se le agregan evento a los botones de las CARDS
+    const contenedorCantidad = document.querySelectorAll(".cantidad-container");
+    contenedorCantidad.forEach((x) => {
+      const num = x.querySelector(".cantidad");
+      let resultado = parseInt(num.value);
+      const btnMenos = x.querySelector(".menos");
+      const btnMas = x.querySelector(".mas");
+
+      btnMenos.addEventListener("click", () => {
+        if (resultado > 1) {
+          resultado--;
+          num.value = resultado;
+        }
+      });
+
+      btnMas.addEventListener("click", () => {
+        resultado++;
+        num.value = resultado;
+      });
+    });
   });
 }
 
@@ -50,6 +75,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const data = await res.json();
   crearCards(data);
   cargarCategorias();
+
+  //Se carga en el load al mismo tiempo que las card la funcionalidad de los botones agregar
+  cargarCarrito();
 });
 
 //Funcion para filtrar productos en base a la categoria
@@ -97,17 +125,22 @@ btnBuscar.addEventListener("click", async () => {
     }).showToast();
     return;
   }
-
   crearCards(filtrado);
 });
-//Se agrega que cuanddo el input este vacio vuelva a cargar todas las CARD
-inputBuscar.addEventListener("input", async () => {
+
+//Se agrega la funcion para que cuando se borre el input se carguen todos los productos de nuevo
+
+async function reloadCards() {
   const producto = document.querySelector(".buscar").value.trim().toUpperCase();
   const res = await fetch("http://localhost:3000/productos");
   const data = await res.json();
   if (producto === "") {
     crearCards(data);
+    return;
   }
+}
+inputBuscar.addEventListener("input", async () => {
+  reloadCards();
 });
 
 //Funcion para filtrar por rango de precio
@@ -137,3 +170,31 @@ document.getElementById("btn-filtrar").addEventListener("click", async () => {
   );
   crearCards(filtrados);
 });
+
+async function cargarCarrito() {
+  const CARDS = document.querySelectorAll(".card");
+  CARDS.forEach((element) => {
+    const boton = element.querySelector(".agregar");
+    const cantidad = element.querySelector(".cantidad");
+    const precio = element.querySelector(".prod_precio").dataset.valor;
+    boton.addEventListener("click", async () => {
+      const data = {
+        id_producto: boton.value,
+        precio: precio,
+        cantidad: cantidad.value,
+      };
+      try {
+        const res = await fetch("http://localhost:3000/carrito_producto", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (res.ok) {
+          alert("Se agrego el producto al carrito correctamente.");
+        }
+      } catch (error) {
+        alert(error);
+      }
+    });
+  });
+}

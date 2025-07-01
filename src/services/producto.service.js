@@ -7,19 +7,19 @@ exports.getAll = async (req, res) => {
     );
     return row;
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
 exports.getOne = async (id) => {
   try {
     const [row] = await pool.query(
-      "select p.nombre, p.descripcion, p.precio, m.nombre, c.nombre, imagen_url from productos p inner join marca m on m.id_marca = p.marca_id inner join categoria c on c.id_categoria = p.categoria_id where id_producto = ?",
+      "select p.id_producto, p.nombre, p.descripcion, p.precio, m.nombre as marca, c.nombre as categoria, imagen_url from productos p inner join marca m on m.id_marca = p.marca_id inner join categoria c on c.id_categoria = p.categoria_id where id_producto = ?",
       [id]
     );
     return row[0];
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -45,7 +45,7 @@ exports.create = async ({
       categoria_id,
     };
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -60,7 +60,7 @@ exports.modificar = async (
     );
     return { nombre, descripcion, precio, marca_id, categoria_id, id };
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -69,6 +69,6 @@ exports.remove = async (id) => {
     await pool.query("delete from productos where id_producto = ?", [id]);
     return { delete: true };
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };

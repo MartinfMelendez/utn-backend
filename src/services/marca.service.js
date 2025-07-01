@@ -5,7 +5,7 @@ exports.getAll = async () => {
     const [row] = await pool.query("Select * from marca");
     return row;
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -16,7 +16,7 @@ exports.getOne = async (id) => {
     ]);
     return row[0];
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -27,7 +27,7 @@ exports.creat = async ({ nombre }) => {
     ]);
     return { id: result.insertId, nombre };
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -39,7 +39,7 @@ exports.modificar = async ({ nombre }, id) => {
     );
     return { id, nombre };
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -48,6 +48,6 @@ exports.remove = async (id) => {
     await pool.query("delete from marca where id_marca = ?", [id]);
     return { delete: true };
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };

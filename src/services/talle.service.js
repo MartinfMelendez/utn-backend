@@ -5,7 +5,7 @@ exports.getAll = async () => {
     const [row] = await pool.query("select * from talle");
     return row;
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -16,7 +16,7 @@ exports.getOne = async (id) => {
     ]);
     return row[0];
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -28,7 +28,7 @@ exports.create = async ({ nombre }) => {
     );
     return { id: talle.insertId, nombre };
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -41,7 +41,7 @@ exports.modify = async (id, { nombre }) => {
 
     return { id, nombre };
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -50,6 +50,6 @@ exports.remove = async (id) => {
     await pool.query("delete from talle where id_talle = ?", [id]);
     return { delete: true };
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };

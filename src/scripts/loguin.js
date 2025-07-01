@@ -1,3 +1,12 @@
+document.addEventListener("DOMContentLoaded", async () => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    document.getElementById("log_in").style.display = "none";
+    document.getElementById("log_off").style.display = "block";
+  }
+});
+
+//Iniciar sesion
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -12,30 +21,8 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     });
 
     const data = await res.json();
-    const tokena = localStorage.getItem("tokena");
     const token = localStorage.getItem("token");
-    console.log(token);
-    if (token || tokena) {
-      Swal.fire({
-        title: "Usuario ya logueado",
-        text: "Desea cerrar la sesion",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Se, cerrar",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          localStorage.clear();
-          Swal.fire({
-            title: "Sesion finalizada!",
-            text: "Su sesion se cerro con exito",
-            icon: "success",
-          });
-        }
-      });
-      return;
-    }
+
     const payloadBase64 = data.token.split(".")[1];
     const payloadJson = atob(payloadBase64);
     const payload = JSON.parse(payloadJson);
@@ -43,14 +30,14 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     const rol = payload.usuario.rol;
 
     if (rol === 1) {
-      localStorage.setItem("tokena", data.token);
+      localStorage.setItem("token", data.token);
       window.location.href = "/src/Pages/gestorUsuarios.html";
       return;
     }
 
     if (res.ok) {
       localStorage.setItem("token", data.token);
-      window.location.href = "/src/Pages/gestorUsuarios.html";
+      window.location.href = "/index.html";
     } else {
       Toastify({
         text: data.mensaje || "Credenciales inválidas",
@@ -65,4 +52,23 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   } catch (error) {
     alert("Error al conectar con el servidor");
   }
+});
+
+//Cerrar sesion
+
+document.getElementById("log_off").addEventListener("click", async () => {
+  Toastify({
+    text: "Sesion finalizada",
+    duration: 2000,
+    position: "center",
+    style: {
+      background: "linear-gradient(to right,rgb(255, 0, 51),rgb(201, 61, 61))",
+    },
+  }).showToast();
+
+  setTimeout(() => {
+    document.getElementById("log_in").style.display = "block";
+    document.getElementById("log_off").style.display = "none";
+    localStorage.removeItem("token");
+  }, 2000);
 });

@@ -6,8 +6,6 @@
 
 /* Estilos generales */
 
-.ocultar{display: none;}
-
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
@@ -248,78 +246,7 @@ main {
   background-color: #0056b3;
 }
 
-/* Tabla */
-.tabla-container {
-  margin-top: 3rem;
-  overflow-x: auto;
-}
 
-.tabla-productos {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 2rem;
-}
-
-.tabla-productos th,
-.tabla-productos td {
-  padding: 1rem;
-  text-align: center;
-  border: 1px solid #ddd;
-}
-
-.tabla-productos td img {
-  width: 100px;
-  height: auto;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.tabla-productos th {
-  background-color: #333;
-  color: #fff;
-}
-
-.tabla-productos td {
-  background-color: #f9f9f9;
-}
-
-.tabla-productos tfoot td {
-  background-color: #fff;
-  font-weight: bold;
-}
-
-.tabla-productos button {
-  padding: 0.5rem 1.2rem;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.tabla-productos .eliminar {
-  padding: 0.5rem 1.2rem;
-  background-color: #e14444;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.tabla-productos .eliminar:hover {
-  background-color: #bc4a4a;
-}
-
-.tabla-productos button:hover {
-  background-color: #45a049;
-}
-
-#total {
-  font-size: 1.2rem;
-  color: #4caf50;
-}
 
 /*SEEWT ALERT2*/
 
@@ -387,8 +314,10 @@ main.loguin form#loginForm button:hover {
 
 main.gestorUsuarios {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  width: 100%;
   padding: 2rem;
   background-color: #f4f4f4;
   min-height: 100vh;
@@ -412,7 +341,7 @@ main.gestorUsuarios h2 {
 main.gestorUsuarios form {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+   gap: 0.75rem;
 }
 
 main.gestorUsuarios form input {
@@ -453,4 +382,150 @@ main.gestorUsuarios button:hover {
 #log-out {
   margin-top: 2rem;
   width: 100%;
+}
+
+/* Contenedor general de la tabla */
+.tabla-container {
+  margin-top: 3rem;
+  overflow-x: auto;
+  width: 90%;          /* Ancho al 75% */
+  margin-left: auto;   /* Centrar horizontalmente */
+  margin-right: auto;
+}
+/* Tabla principal */
+.tabla-productos {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+}
+
+/* Estilos para celdas y encabezados */
+.tabla-productos th,
+.tabla-productos td {
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid #ddd;
+  vertical-align: middle; /* Para centrar contenido verticalmente */
+}
+
+/* Imagen dentro de celdas si existiera */
+.tabla-productos td img {
+  width: 100px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Encabezados */
+.tabla-productos th {
+  background-color: #333;
+  color: #fff; /* Mejor contraste, era negro */
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Celdas de datos */
+.tabla-productos td {
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Pie de tabla si lo tienes */
+.tabla-productos tfoot td {
+  background-color: #fff;
+  font-weight: bold;
+}
+
+/* Botones generales */
+.tabla-productos button {
+  padding: 0.5rem 1.2rem;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Botón eliminar específico */
+.tabla-productos .eliminar {
+  background-color: #e14444;
+  color: #fff;
+}
+
+.tabla-productos button:hover {
+  background-color: #45a049;
+}
+
+.tabla-productos .eliminar:hover {
+  background-color: #bc4a4a;
+}
+
+/* CRUD: Estilo compartido para formularios */
+.crud-box {
+  background-color: #333;
+  color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 75%;          /* Cambiado de 100% y max-width 500px a 75% */
+  max-width: none;     /* Quitamos el max-width para permitir 75% real */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin: 1rem auto;   /* Centrar horizontalmente */
+}
+
+.crud-box h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.crud-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.crud-box form input,
+.crud-box form textarea,
+.crud-box form select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+}
+
+.crud-box form label {
+  margin-top: 0.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.crud-box .form-buttons {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.crud-box button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.crud-box button:hover {
+  background-color: #45a049;
+}
+
+/* Imagen input extra */
+.crud-box input[type="file"] {
+  background-color: #f9f9f9;
+  color: #333;
 }

@@ -32,8 +32,8 @@
     </header>
 
 
-    <main class="gestorUsuarios">
-        <div class="ocultar">
+    <main class="gestorUsuarios ocultar">
+        <!-- <div class="crud-box ">
             <h2>Gestión de Usuarios (CRUD)</h2>
 
             <form id="usuarioForm">
@@ -63,13 +63,64 @@
             </form>
 
             <div id="contenido"></div>
+        </div> -->
 
+        <div class="crud-box ">
+            <h2>Gestión de Productos (CRUD)</h2>
+            <form id="productoForm" enctype="multipart/form-data">
+                <label for="prod_nombre">Nombre:</label>
+                <input type="text" id="prod_nombre" placeholder="Nombre del producto" required />
+
+                <label for="prod_descripcion">Descripción:</label>
+                <textarea id="prod_descripcion" placeholder="Descripción del producto"></textarea>
+
+                <label for="prod_precio">Precio:</label>
+                <input type="number" id="prod_precio" placeholder="Precio" step="0.01" required />
+
+                <label for="prod_marca">Marca:</label>
+                <select type="text" id="prod_marca" placeholder="Marca"></select>
+
+                <label for="prod_categoria">Categoría:</label>
+                <select type="text" id="prod_categoria" placeholder="Categoría"></select>
+
+                <label for="prod_imagen">Imagen:</label>
+                <input type="file" id="prod_imagen" accept="image/*" name="imagen" />
+
+                <div class="form-buttons">
+                    <button type="submit">Crear</button>
+                    <button type="button" id="buscarProducto">Buscar</button>
+                    <button type="button" id="eliminarProducto">Modificar</button>
+                </div>
+            </form>
+            <div id="contenidoProductos"></div>
             <button id="log-out">Cerrar sesión</button>
+            <div id="contenido"></div>
         </div>
+
+        <div class="crud-box">
+            <div class="tabla-container">
+                <table class="tabla-productos">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Categoría</th>
+                            <th>Marca</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productos-lista">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </main>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../scripts/gestorUsers.js"></script>
-   </body>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="../scripts/gestorUsers.js"></script> -->
+    <script src="../scripts//gestorProductos.js"></script>
+</body>
 
 </html>

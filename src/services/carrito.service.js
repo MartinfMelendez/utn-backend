@@ -5,7 +5,7 @@ exports.getAll = async () => {
     const [row] = await pool.query("select * from carrito");
     return row;
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -17,7 +17,7 @@ exports.getOne = async (idCarrito, idUsuario) => {
     );
     return row[0];
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -29,7 +29,7 @@ exports.create = async ({ id_carrito, id_usuario, fehca_creacion }) => {
     );
     return { id_usuario };
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
 
@@ -38,6 +38,6 @@ exports.remove = async (id_carrito) => {
     await pool.query("delete from carrito where id_carrito = ?", [id_carrito]);
     return { delete: true };
   } catch (error) {
-    console.log(error);
+    return error.sqlMessage;
   }
 };
