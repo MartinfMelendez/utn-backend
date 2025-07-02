@@ -23,9 +23,22 @@ exports.getOne = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   try {
-    const newProducto = await service.create(req.body);
+    const { nombre, descripcion, precio, marca_id, categoria_id } = req.body;
+
+    const imagen_url = req.file ? `/public/image/${req.file.filename}` : null;
+
+    const newProducto = await service.create({
+      nombre,
+      descripcion,
+      precio,
+      marca_id,
+      categoria_id,
+      imagen_url,
+    });
+
     res.status(201).json(newProducto);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Error al crear un producto" });
   }
 };
