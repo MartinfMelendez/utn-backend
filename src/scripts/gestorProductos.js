@@ -57,14 +57,13 @@ document
     formData.append("marca_id", form.prod_marca.value);
     formData.append("categoria_id", form.prod_categoria.value);
 
-    // Esto es clave: accedés al archivo subido
     const file = form.prod_imagen.files[0];
-    formData.append("imagen", file); // 'archivo' debe coincidir con el nombre usado en uploader.single('archivo')
+    formData.append("imagen", file);
 
     try {
       const response = await fetch("http://localhost:3000/productos", {
         method: "POST",
-        body: formData, // NO poner Content-Type, fetch lo hace solo con FormData
+        body: formData,
       });
 
       const result = await response.json();
@@ -77,6 +76,8 @@ document
             "linear-gradient(to right,rgb(0, 255, 21),rgb(61, 201, 80))",
         },
       }).showToast();
+
+      form.reset();
     } catch (error) {
       console.error("Error:", error);
     }
@@ -224,6 +225,9 @@ document
           },
         }).showToast();
       }
+      setTimeout(() => {
+        form.reset();
+      }, 1000);
     } catch (error) {
       console.log(error);
     }

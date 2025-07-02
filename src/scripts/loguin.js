@@ -31,7 +31,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
     if (rol === 1) {
       localStorage.setItem("token", data.token);
-      window.location.href = "/src/Pages/gestorUsuarios.html";
+      window.location.href = "/src/Pages/gestorProductos.html";
       return;
     }
 

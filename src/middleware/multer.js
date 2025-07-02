@@ -3,8 +3,6 @@ const path = require("path");
 
 const uploadPath = path.resolve(__dirname, "../../public/image");
 
-console.log("Upload path:", uploadPath);
-
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, uploadPath);

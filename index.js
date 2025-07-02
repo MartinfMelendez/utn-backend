@@ -38,7 +38,7 @@ app.set("views", "./src/views");
 app.use(express.json()); //Comando para parsear JSON al body
 app.use(cors());
 app.use("/public", express.static(path.join(__dirname, "public"))); //Comando para leer archivos estaticos
-console.log(__dirname);
+
 //Para utilizar el Router se usa la palabra use--> app.use(direccion, router)
 app.use("/marca", marca);
 app.use("/categorias", categorias);
