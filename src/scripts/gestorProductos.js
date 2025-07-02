@@ -43,42 +43,6 @@ async function loadMarca() {
 }
 
 //Logica para cargar un producto nuevo
-// document
-//   .getElementById("productoForm")
-//   .addEventListener("submit", async (e) => {
-//     e.preventDefault();
-//     const form = e.target;
-//     const data = {
-//       nombre: form.prod_nombre.value,
-//       descripcion: form.prod_descripcion.value,
-//       precio: form.prod_precio.value,
-//       marca_id: form.prod_marca.value,
-//       categoria_id: form.prod_categoria.value,
-//       imagen_url: form.prod_imagen.value,
-//     };
-//     console.log(data);
-
-//     try {
-//       const response = await fetch("http://localhost:3000/productos", {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(data),
-//       });
-
-//       const result = await response.json();
-//       Toastify({
-//         text: "Producto guardado correctamente.",
-//         duration: 1000,
-//         position: "center",
-//         style: {
-//           background:
-//             "linear-gradient(to right,rgb(0, 255, 21),rgb(61, 201, 80))",
-//         },
-//       }).showToast();
-//     } catch (error) {
-//       console.error("Error:", error);
-//     }
-//   });
 
 document
   .getElementById("productoForm")
